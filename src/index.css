@@ -49,4 +49,10 @@ ol, ul {
   margin-left: 20px;
 }
 
+.time::after {
+    content:"";
+    clear: both;
+    display: table
+}
+
 

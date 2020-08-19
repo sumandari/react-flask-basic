@@ -9,7 +9,7 @@ def get_current_time():
     return {'time': time.time()}
 
 
-@app.route('/'):
+@app.route('/')
 def index():
     return app.send_static_file('index.html')
 

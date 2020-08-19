@@ -1,6 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
+function TimeFlask(){
+  const [currentTime, setCurrentTime] = useState(0);
+
+  useEffect(()=>{
+    fetch('/api/time').then(res => res.json()).then(data => {
+      setCurrentTime(data.time);
+    });
+  }, []);
+
+  return (
+    <div className="TimeFlask">
+      <p>Data from backend: The current time is {currentTime}</p>
+    </div>
+  )
+}
 
 function Square(props) {
   return (
@@ -76,8 +92,9 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
-    })
-  }
+    });
+  };
+
 
   render() {
     const history = this.state.history;
@@ -119,11 +136,17 @@ class Game extends React.Component {
   }
 }
 
+
 // ========================================
 
 ReactDOM.render(
   <Game />,
   document.getElementById('root')
+);
+
+ReactDOM.render(
+  <TimeFlask />,
+  document.getElementById('api')
 );
 
 function calculateWinner(squares) {
